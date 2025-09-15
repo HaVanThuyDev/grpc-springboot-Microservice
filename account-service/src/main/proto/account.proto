@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package com.service.grpc;
+
+import "google/protobuf/empty.proto";
+import "common.proto";
+option java_package = "com.service.grpc";
+option java_multiple_files = true;
+option java_outer_classname = "AccountProto";
+
+message Account {
+  int32 id = 1;
+  string name = 2;
+  string username = 3;
+  string password = 4;
+  int32 product_id = 5;
+}
+
+message AccountRequest {
+  int32 id = 1;
+}
+message AccountList {
+  repeated Account accounts = 1;
+}
+message CreateAccountRequest {
+  string name = 1;
+  string username = 2;
+  string password = 3;
+  int32 product_id = 4;
+}
+message UpdateAccountRequest {
+  int32 id = 1;
+  string name = 2;
+  string username = 3;
+  string password = 4;
+  int32 product_id = 5;
+}
+message DeleteAccountRequest {
+  int32 id = 1;
+}
+service AccountService {
+  rpc GetAccount(AccountRequest) returns (Account);
+  rpc GetAllAccounts(google.protobuf.Empty) returns (AccountList);
+  rpc CreateAccount(CreateAccountRequest) returns (Account);
+  rpc UpdateAccount(UpdateAccountRequest) returns (Account);
+  rpc DeleteAccount(DeleteAccountRequest) returns (google.protobuf.Empty);
+  rpc SearchAccounts(SearchRequest) returns (AccountList);
+}

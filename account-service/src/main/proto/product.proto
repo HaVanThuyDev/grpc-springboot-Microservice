@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package com.service.grpc;
+
+import "google/protobuf/empty.proto";
+import "common.proto";
+
+option java_package = "com.service.grpc";
+option java_multiple_files = true;
+option java_outer_classname = "ProductProto";
+
+message Product {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  float price = 4;
+  string brand = 5;
+  string category_id = 6;
+}
+
+message ProductRequest {
+  int32 id = 1;
+}
+
+message ProductList {
+  repeated Product products = 1;
+}
+
+message CreateProductRequest {
+  string name = 1;
+  string description = 2;
+  float price = 3;
+  string brand = 4;
+  string category_id = 5;
+}
+
+message UpdateProductRequest {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  float price = 4;
+  string brand = 5;
+  string category_id = 6;
+}
+
+message DeleteProductRequest {
+  int32 id = 1;
+}
+
+service ProductService {
+  rpc GetProduct(ProductRequest) returns (Product);
+  rpc GetAllProducts(google.protobuf.Empty) returns (ProductList);
+  rpc CreateProduct(CreateProductRequest) returns (Product);
+  rpc UpdateProduct(UpdateProductRequest) returns (Product);
+  rpc DeleteProduct(DeleteProductRequest) returns (google.protobuf.Empty);
+  rpc SearchProducts(SearchRequest) returns (ProductList);
+}
